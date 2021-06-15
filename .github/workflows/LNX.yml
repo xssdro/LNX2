@@ -1,0 +1,24 @@
+on:
+ workflow_dispatch:
+   inputs:
+     NGROK_AUTH:
+       description: "Enter Your Authtoken"
+       required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Updating Linux
+      run: sudo apt-get update
+    - name: Setting Up Linux
+      run: bash setup.sh
+      env:
+        N_AUTH: ${{ github.event.inputs.NGROK_AUTH }}
+    - name: KEEP-ALIVE
+      run: sleep 6h
